@@ -1,4 +1,4 @@
-This is a [Next.js](https://nextjs.org/) project with Stripe. Serves as reference point for using [Stipe] in [Next.js] app router. 
+This is a [Next.js](https://nextjs.org/) project with Stripe. Serves as reference point for using [Stripe](https://stripe.com) in [Next.js](https://nextjs.org/) app router. 
 
 ## Getting Started
 
