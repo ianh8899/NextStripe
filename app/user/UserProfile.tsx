@@ -19,7 +19,7 @@ export default function UserProfile() {
                 const { data: stripeCustomerData, error } = await supabase
                 .from("stripe_customers")
                 .select("*")
-                .eq("user_id", user.id)
+                .eq("userId", user.id)
                 .single();
 
                 if (error) {

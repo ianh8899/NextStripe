@@ -21,7 +21,9 @@ export async function POST(request: NextRequest) {
             const session: Stripe.Checkout.Session = event.data.object;
             console.log(session);
             const userId = session.metadata?.user_id;
-
+        
+            console.log(`userId: ${userId}, customer: ${session.customer}`);  // Log userId and customer
+        
             //Create or update the stripe_customer_id in the stripe_customers table
             const { error } = await supabaseAdmin
                 .from('stripe_customers')
@@ -32,7 +34,10 @@ export async function POST(request: NextRequest) {
                     plan_active: true,
                     plan_expires: null,
                 })
-
+        
+            if (error) {
+                console.error(`Upsert operation failed: ${error.message}`);  // Log any errors from the upsert operation
+            }
         }
 
         if (event.type === 'customer.subscription.updated') {
