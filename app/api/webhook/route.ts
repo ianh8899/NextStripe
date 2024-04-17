@@ -41,10 +41,23 @@ export async function POST(request: NextRequest) {
         }
 
         if (event.type === 'customer.subscription.updated') {
+            const subscription: Stripe.Subscription = event.data.object;
+            console.log(subscription);
 
+            const { error } = await supabaseAdmin
+            .from('stripe_customers')
+            .update({ plan_expires: subscription.cancel_at })
+            .eq('subscription_id', subscription.id);
         }
 
         if (event.type === 'customer.subscription.deleted') {
+            const subscription = event.data.object;
+            console.log(subscription);
+
+            const { error } = await supabaseAdmin
+            .from('stripe_customers')
+            .update({ plan_active: false, subscription_id: null })
+            .eq('subscription_id', subscription.id);
 
         }
 
